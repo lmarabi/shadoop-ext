@@ -1,11 +1,11 @@
 /***********************************************************************
-* Copyright (c) 2015 by Regents of the University of Minnesota.
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Apache License, Version 2.0 which 
-* accompanies this distribution and is available at
-* http://www.opensource.org/licenses/apache2.0.php.
-*
-*************************************************************************/
+ * Copyright (c) 2015 by Regents of the University of Minnesota.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Apache License, Version 2.0 which 
+ * accompanies this distribution and is available at
+ * http://www.opensource.org/licenses/apache2.0.php.
+ *
+ *************************************************************************/
 package edu.umn.cs.spatialHadoop;
 
 import java.awt.Color;
@@ -441,7 +441,7 @@ public class OperationsParams extends Configuration {
 	public <S extends Shape> S[] getShapes(String key, S stock) {
 		String[] values = getArray(key);
 		if (values == null)
-		  return null;
+			return null;
 		S[] shapes = (S[]) Array.newInstance(stock.getClass(), values.length);
 		for (int i = 0; i < values.length; i++) {
 			shapes[i] = (S) stock.clone();
@@ -509,9 +509,7 @@ public class OperationsParams extends Configuration {
 		return sjmrPartitioningGrid;
 	}
 
-	
-	public static int getJoiningThresholdPerOnce(Configuration conf,
-			String key) {
+	public static int getJoiningThresholdPerOnce(Configuration conf, String key) {
 		String joiningThresholdPerOnce_str = conf.get(key);
 		if (joiningThresholdPerOnce_str == null)
 			LOG.error("Your joiningThresholdPerOnce is not set");
@@ -521,26 +519,25 @@ public class OperationsParams extends Configuration {
 	public static void setJoiningThresholdPerOnce(Configuration conf,
 			String param, int joiningThresholdPerOnce) {
 		String str = null;
-		if (joiningThresholdPerOnce < 0){
-			str = "50000";				
-		}else{
+		if (joiningThresholdPerOnce < 0) {
+			str = "50000";
+		} else {
 			str = joiningThresholdPerOnce + "";
 		}
 		conf.set(param, str);
 	}
-	
-	
+
 	public static void setSpatialJoinOutputMode(Configuration conf,
 			String param, boolean spatialJoinOutputMode) {
 		String str = null;
-		if (spatialJoinOutputMode){
-			str = "true";	
-		}else{
+		if (spatialJoinOutputMode) {
+			str = "true";
+		} else {
 			str = "false";
 		}
 		conf.set(param, str);
 	}
-	
+
 	public static boolean getSpatialJoinOutputMode(Configuration conf,
 			String key) {
 		String spatialJoinOutputModeFlag = conf.get(key);
@@ -548,45 +545,43 @@ public class OperationsParams extends Configuration {
 			LOG.error("Your spatialJoinOutputMode is not set");
 		return Boolean.parseBoolean(spatialJoinOutputModeFlag);
 	}
-	
-	public static void setFilterOnlyModeFlag(Configuration conf,
-			String param, boolean filterOnlyMode) {
+
+	public static void setFilterOnlyModeFlag(Configuration conf, String param,
+			boolean filterOnlyMode) {
 		String str = null;
-		if (filterOnlyMode){
-			str = "true";	
-		}else{
+		if (filterOnlyMode) {
+			str = "true";
+		} else {
 			str = "false";
 		}
 		conf.set(param, str);
 	}
-	
-	public static boolean getFilterOnlyModeFlag(Configuration conf,
-			String key) {
+
+	public static boolean getFilterOnlyModeFlag(Configuration conf, String key) {
 		String filterOnlyModeFlag = conf.get(key);
 		if (filterOnlyModeFlag == null)
 			LOG.error("Your filterOnlyMode is not set");
 		return Boolean.parseBoolean(filterOnlyModeFlag);
 	}
-	
-	public static boolean getInactiveModeFlag(Configuration conf,
-			String key) {
+
+	public static boolean getInactiveModeFlag(Configuration conf, String key) {
 		String inactiveModeFlag_str = conf.get(key);
 		if (inactiveModeFlag_str == null)
 			LOG.error("Your inactiveModeFlag is not set");
 		return Boolean.parseBoolean(inactiveModeFlag_str);
 	}
-	
-	public static void setInactiveModeFlag(Configuration conf,
-			String param, boolean inactiveModeFlag) {
+
+	public static void setInactiveModeFlag(Configuration conf, String param,
+			boolean inactiveModeFlag) {
 		String str = null;
-		if (inactiveModeFlag){
-			str = "true";	
-		}else{
+		if (inactiveModeFlag) {
+			str = "true";
+		} else {
 			str = "false";
 		}
 		conf.set(param, str);
 	}
-	
+
 	public static Path getRepartitionJoinIndexPath(Configuration conf,
 			String key) {
 		String repartitionJoinIndexPath_str = conf.get(key);
@@ -792,7 +787,7 @@ public class OperationsParams extends Configuration {
 	 *         in MapReduce mode.
 	 */
 	public static boolean isLocal(JobConf job, Path... input) {
-	  job = new JobConf(job); // To ensure we don't change the original
+		job = new JobConf(job); // To ensure we don't change the original
 		final boolean LocalProcessing = true;
 		final boolean MapReduceProcessing = false;
 
@@ -813,8 +808,9 @@ public class OperationsParams extends Configuration {
 
 		FileInputFormat.setInputPaths(job, input);
 		ShapeLineInputFormat inputFormat = new ShapeLineInputFormat();
-		job.setClass(SpatialSite.FilterClass, RangeFilter.class, BlockFilter.class);
-		
+		job.setClass(SpatialSite.FilterClass, RangeFilter.class,
+				BlockFilter.class);
+
 		try {
 			InputSplit[] splits = inputFormat.getSplits(job, 1);
 			if (splits.length > MaxSplitsForLocalProcessing)
@@ -835,7 +831,7 @@ public class OperationsParams extends Configuration {
 		}
 	}
 
-  public void clearAllPaths() {
-    this.allPaths = null;
-  }
+	public void clearAllPaths() {
+		this.allPaths = null;
+	}
 }
